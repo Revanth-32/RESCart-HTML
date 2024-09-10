@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+    <style>
+        .delete-item {
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: black;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        .cart-item {
+            border: 2px solid #ccc;
+            border-radius: 25px;
+            padding: 15px;
+            width: 300px;
+            height: auto;
+            text-align: center;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+            background-color: bisque;
+            margin-bottom: 15px;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <form onsubmit="">
+            <div class="input-cont">
+                <input type="text" id="nameInput" placeholder="Enter your name"><br><br>
+                <input type="password" id="passwordInput1" placeholder="Enter your password"><br><br>
+                <input type="password" id="passwordInput2" placeholder="Re-enter your password"><br><br>
+                <input type="email" id="mail" placeholder="Enter your email"><br><br>
+                <input type="number" id="number" placeholder="Enter your mobile number"><br><br>
+                <button type="button" onclick="addTask()">Add Task</button>
+            </div>
+            <div id="taskList"></div>
+        </form>
+    </div>
+
+    <script>
+        function addTask() {
+            let taskInput1 = document.getElementById("nameInput").value;
+            let taskInput2 = document.getElementById("passwordInput1").value;
+            let taskInput3 = document.getElementById("passwordInput2").value;
+            let taskInput4 = document.getElementById("mail").value;
+            let taskInput5 = document.getElementById("number").value;
+
+            let taskList = document.getElementById("taskList");
+
+            if (taskInput1 === "" || taskInput2 === "" || taskInput3 === "" || taskInput4 === "" || taskInput5 === "") {
+                alert("Please fill in all fields");
+            } else if (taskInput2 !== taskInput3) {
+                alert("Passwords do not match");
+            } else {
+                let listItem = document.createElement("div");
+                listItem.classList.add("cart-item");
+                listItem.innerHTML = `
+                    <p>Name: ${taskInput1}</p>
+                    <p>password: ${taskInput2}</p>
+                    <p>Email: ${taskInput4}</p>
+                    <p>Mobile: ${taskInput5}</p>
+                `;
+
+                let removeButton = document.createElement("span");
+                removeButton.classList.add("delete-item");
+                removeButton.innerHTML = "&#10006;";
+                removeButton.onclick = function() {
+                    taskList.removeChild(listItem);
+                };
+
+                listItem.appendChild(removeButton);
+                taskList.appendChild(listItem);
+
+                document.getElementById("nameInput").value = "";
+                document.getElementById("passwordInput1").value = "";
+                document.getElementById("passwordInput2").value = "";
+                document.getElementById("mail").value = "";
+                document.getElementById("number").value = "";
+            }
+        }
+    </script>
+</body>
+</html>
